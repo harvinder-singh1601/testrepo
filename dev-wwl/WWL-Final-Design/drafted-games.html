@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>WINWINLABS | Dashboard</title>
+
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <!-- CSS Files -->
+        <link href="css/material-bootstrap-wizard.css" rel="stylesheet" />
+
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link href="css/demo.css" rel="stylesheet" />
+
+        <!-- Toastr style -->
+        <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+        <!-- Gritter -->
+        <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+
+        <style>
+            .fixed-sidebar{
+                position: fixed;
+            }
+            .mt40column { 
+                margin-top: 40px 
+            }
+
+            .card {
+                height: 100%;
+            }
+            .mt-3 {
+                margin-bottom: 20px;
+            }
+            .card-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
+            .card-title {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
+
+            .filter-col{
+                padding-left:10px;
+                padding-right:10px;
+            }
+            .top-buffer { margin-top:20px; }
+
+            @media (max-width: 768px) {
+
+                img.card-img-top {
+                    width: 100%;
+                }
+                .btn-primary {
+                    font-size: smaller;
+                }
+            }
+            /* Prduct list */
+            #productlist .featureprojectwrap { display: none }
+            .list .thumbnail h3 { text-align: left; margin: 0 0 10px 0; display: block }
+            .list > li { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid #ccc }
+            .list .productdiscrption { margin: 10px 0 25px 0; text-align: left }
+            .list .listclear:after { clear: both; display: block; height: 0; content: '' }
+            .list .caption { padding-top: 0px }
+            .featureprojectwrap ul li {list-style-type: none;}
+            .featureprojectwrap ul {padding: 0;}
+            .thumbnail, .img-thumbnail { padding: 0px; text-align: center }
+            .thumbnail .caption h3 { font-size: 16px; color: #333; margin: 0px; text-align: justify; }
+            .thumbnail .caption { color: #575757; padding: 9px 2px 0; }
+            .thumbnail { border: none; border: 1px solid #fff; padding: 15px; }
+            .thumbnail:hover { border: 1px solid #be2226; box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2); }
+            .thumbnail:hover .caption h3 a { color: #be2226 }
+            .thumbnail .caption h3 a { color: #333; }
+            .thumbnail:hover.thumbnail:before { border-bottom-color: #1884DF; }
+            .thumbnail a > img { display: inline-block; height: auto; max-width: 65%; }
+            .thumbnail { position: relative }
+            /*thumbnail Animation */
+            .thumbnail { position: relative }
+            .thumbnail .viewicons { position: absolute; bootom: -20px; right: -20px; filter: alpha(opacity=0); opacity: 0; }
+            .thumbnail .viewicons a { background: #000; height: 32px; line-height: 32px; width: 32px; display: inline-block; text-align: center; margin: 5px 5px 5px 0; }
+            .thumbnail .viewicons a i { margin-right: 0px; font-size: 18px }
+            .thumbnail .viewicons /*a:Hover i */{ color: #fff }
+            .thumbnail:hover .viewicons { right: 10px; bottom: 10px; filter: alpha(opacity=100); opacity: 10; }
+            .thumbnail img { filter: alpha(opacity=100); width: 100%;}
+            /*.thumbnail:hover img { filter: alpha(opacity=70); opacity: 0.7;/* -webkit-transform: scale(1.1, 1.1); -moz-transform: scale(1.1, 1.1); -o-transform: scale(1.1, 1.1); -ms-transform: scale(1.1, 1.1); transform: scale(1.1, 1.1); filter: alpha(opacity=100); }*/
+            .thumbnail .viewicons a, .thumbnail .viewicons a i, .thumbnail:hover .viewicons, .thumbnail img, .thumbnail:hover img a:hover i { -moz-transition: all 0.5s ease-in-out 0.2s; -o-transition: all 0.5s ease-in-out 0.2s; transition: all 0.5s ease-in-out 0.2s; -webkit-transition: all 0.5s ease-in-out 0.2s; color: #fff; }
+            a.thumbnail:hover, a.thumbnail:focus { border-color: #1063a9; }
+            .imagepopup, .imagepopup img { position: relative; }
+            .imagepopup .viewicons { position: absolute; bootom: -20px; right: -20px; filter: alpha(opacity=0); opacity: 0; }
+            .imagepopup .viewicons a { background: #000; height: 32px; line-height: 32px; width: 32px; display: inline-block; text-align: center; margin: 5px 5px 5px 0; }
+            .imagepopup .viewicons a i { margin-right: 0px; font-size: 18px }
+            .imagepopup .viewicons a:Hover i { color: #fff }
+            .imagepopup:hover .viewicons { right: 10px; bottom: 10px; filter: alpha(opacity=100); opacity: 10; }
+            .imagepopup img { filter: alpha(opacity=100); }
+            .imagepopup:hover img { filter: alpha(opacity=70); opacity: 0.7;/* -webkit-transform: scale(1.05, 1.05); -moz-transform: scale(1.05, 1.05); -o-transform: scale(1.1, 1.05); -ms-transform: scale(1.1, 1.05); transform: scale(1.1, 1.05); */ filter: alpha(opacity=100); }
+            .imagepopup .viewicons a, .imagepopup .viewicons a i, .imagepopup:hover .viewicons, .imagepopup img, .imagepopup:hover img { -moz-transition: all 0.5s ease-in-out 0.2s; -o-transition: all 0.5s ease-in-out 0.2s; transition: all 0.5s ease-in-out 0.2s; -webkit-transition: all 0.5s ease-in-out 0.2s; }
+            .nav-tabs > li > a:hover { border-color: #eeeeee; }
+            .nav-tabs > li.active > a, .nav-tabs > li:hover > a,  .nav-tabs > li:focus > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { color: #00468C; cursor: default; background-color: #ffffff; border: 1px solid #dddddd; border-bottom-color: transparent; cursor:pointer }
+            .nav > li > a:hover { text-decoration: none; }
+            #myTab.nav > li > a { padding: 8px 10px; border-radius:0px;  -moz-border-radius:0px;  -webkit-border-radius:0px }
+            input, button, textarea { padding: 7px 12px; border: 1px solid #E7E7E7 }
+            select { padding: 6px 12px; border: 1px solid #E7E7E7; line-height: 26px }
+            .form-control { height: 32px }
+            .justify {text-align: justify; font-size: 12px; margin-bottom: 10px;}
+            .justify p {margin-bottom: 5px;}
+            .latestprojectcontianer {padding-bottom: 40px;}
+            .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+                color: #fff;
+                background-color: #be2226;
+            }
+            .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+                background-color: #be2226;
+                border-color: #DDDDDD;
+                color: #fff;
+            }
+            .mb-7 {margin-bottom: 7px;}
+            .view-filters {margin-top: 10px; margin-bottom: 10px; padding-top: 3px; padding-bottom: 3px;}
+            .mt40.clearfix {clear: both;}
+            .list-unstyled li {display: inline-block;width: 47%;font-size: 20px; cursor: pointer;}
+            .list-unstyled li a {color: #999;}
+            .list-unstyled li:hover a {color: #be2226;}
+            .thumbnail:hover img {transform: rotate(5deg) scale(1.3);}
+            .thumbnail img {transition: all 0.5s ease;}
+            .listclear .justify {text-align: right; border-bottom: 1px solid #ddd;}
+            .listclear .list-unstyled li {display: inline-block; font-size: 20px; cursor: pointer; float: right; padding: 0 10px; width: initial;}
+            .listclear .caption h3 {font-size: 16px; color: #333; margin: 0px; text-align: justify; margin-bottom: 15px;}
+            /* ------------ Ecommerce ---------- */
+
+            .thumbnail .sale, .thumbnail .new, .thumbnail .offer { position: absolute; top: 0px; left: 0px; overflow: hidden; display: block; background: #F1B500; color: #ffffff; padding: 6px 10px; line-height: 14px; z-index: 999 }
+            .thumbnail .sale i, .thumbnail .new i, .thumbnail .new i { font-size: 16px }
+            .newprice { font-weight: bold; font-size: 15px; margin-right: 8px; background: #96979D; color: #fff; padding: 1px 3px }
+            .oldprice { font-weight: normal; font-size: 12px; text-decoration: line-through }
+            .productratecart { margin: 5px 0 0 0 }
+            .productratecart:after { clear: both; display: block; content: ''; height: 0 }
+            .cart-info {border-top:4px solid #1884DF}
+            .relativediv { position: relative; overflow: hidden; }
+            .btn-switcher.active {background-color: #be2226 !important; transition: 0.5s;}
+            .sorting .form-inline {margin-top: 7px;}
+            .sorting {border: 1px solid #999; padding: 10px; margin-bottom: 30px; border-radius: 4px;}
+            .view-switcher {text-align: right;}
+            @media (min-width: 1200px) and (max-width: 1400px) {
+                .grid-list-container {
+                    width: 80%;
+                }
+                .price-range input {
+                    border: none;
+                    width: calc(100% - 105px);
+                }
+            }
+            @media (min-width: 992px) and (max-width: 1050px) {
+                .grid-list-container {
+                    width: 80%;
+                }
+                .price-range input {
+                    border: none;
+                    width: calc(100% - 105px);
+                }
+            }
+            /** Tablet */
+            @media (min-width: 768px) and (max-width: 992px) {
+                .grid-list-container {
+                    width: 100%;
+                }
+                .price-range input {
+                    border: none;
+                    width: calc(100% - 105px);
+                }
+            }
+            @media only screen and (orientation:landscape) and (max-width: 768px) {
+                .landscape-50 {
+                    width: 50%;
+                }
+            }
+            @media only screen and (orientation:portrait) and (max-width: 768px) {
+                .advanced-filters, .view-switcher {
+                    text-align: center;
+                }
+            }
+            @media only screen and (orientation:landscape) and (max-width: 768px) {
+                .view-switcher {
+                    text-align: center;
+                }
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <nav class="navbar-default navbar-static-side fixed-sidebar" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav metismenu" id="side-menu">
+                        <li class="nav-header" style="background-color: #82090c!important">
+                            <div class="dropdown profile-element"> <span>
+                                    <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                                </span>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Scott Jewell</strong>
+                                        </span> <span class="text-muted text-xs block">President <b class="caret"></b></span> </span> </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    <li><a href="profile.html">Profile</a></li>
+                                    <!-- <li><a href="contacts.html">Contacts</a></li>
+                                    <li><a href="mailbox.html">Mailbox</a></li> -->
+                                    <li class="divider"></li>
+                                    <li><a href="login.html">Logout</a></li>
+                                </ul>
+                            </div>
+                            <!-- <div class="logo-element">
+                                IN+
+                            </div> -->
+                        </li>
+                      
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Dashboard</span></a>
+                           
+                        </li>
+                        <li data-toggle="tooltip" data-placement="right" title="Play Games">
+                          
+
+
+                            <a href="games-play.html"><i><img src="img/play.png" alt="Create Games" style="width:30px; height:30px; border-radius: 5px;"></i> <span class="nav-label">Play Games</span></a>
+
+
+
+                        </li>
+                        <li data-toggle="tooltip" data-placement="right" title="Create Games">
+                            <a href="create.html"><i><img src="img/add.png" alt="Create Games" style="width:30px; height:30px; border-radius: 5px;"></i> <span class="nav-label">Create Games</span></a>
+                        </li>
+                        <li data-toggle="tooltip" data-placement="right" title="Manage Account">
+                            <a href="#"><i><img src="img/manage.png" alt="Manage Games" style="width:30px; height:30px; border-radius: 5px;"></i> <span class="nav-label">Manage Account</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="games-drafted.html">Drafted Games</a></li>
+                                <li><a href="games-published.html">Published Games</a></li>
+                             
+                            </ul>
+                        </li>
+                        <li data-toggle="tooltip" data-placement="right" title="Buy Credits">
+                            <a href="buy-credit.html"><i><img src="img/credit.png" alt="Play Games" style="width:30px; height:30px; border-radius: 5px;"></i> <span class="nav-label">Buy Credits</span></a>
+                        </li>
+                        <li data-toggle="tooltip" data-placement="right" title="Do Charity">
+                            <a href="#"><i><img src="img/charity.png" alt="Play Games" style="width:30px; height:30px; border-radius: 5px;"></i> <span class="nav-label">Do Charity</span></a>
+                        
+                        </li>
+                       
+                    </ul>
+
+                </div>
+            </nav>
+
+            <div id="page-wrapper" class="gray-bg dashbard-1">
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                        <div class="navbar-header">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                            <form role="search" class="navbar-form-custom" action="search_results.html">
+                                <div class="form-group search-holder">
+                                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                                </div>
+                            </form>
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <!-- <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span> -->
+                                <span class="m-r-sm text-muted welcome-message"><img src="img/winwinlabs_logo.png" alt="WinWinLabs" /></span>
+
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-messages">
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a7.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <small class="pull-right">46h ago</small>
+                                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a4.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right text-navy">5h ago</small>
+                                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/profile.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">23h ago</small>
+                                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="mailbox.html">
+                                                <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+                                    <li>
+                                        <a href="mailbox.html">
+                                            <div>
+                                                <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                                <span class="pull-right text-muted small">4 minutes ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="profile.html">
+                                            <div>
+                                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                                <span class="pull-right text-muted small">12 minutes ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="grid_options.html">
+                                            <div>
+                                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                                <span class="pull-right text-muted small">4 minutes ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="notifications.html">
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-sign-out"></i> Log out
+                                </a>
+                            </li>
+                            <li>
+                                <a class="right-sidebar-toggle">
+                                    <i class="fa fa-tasks"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!--   Content   -->
+                <!-- Search Starts -->
+                <div class="row">
+                    <div id="filter-panel" class="collapse filter-panel">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <!-- Rating Stars -->
+                                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="thumb-rating-stars-holder js-thumb-rating-stars-holder">
+                                        <div class="thumbnail-rating-star-statistic">
+                                            <span> Rate: <span class="stars-value">5.0</span> | Votes: <span class="votes"> 1</span></span>
+                                        </div>
+                                        <fieldset class="rate js-stars-update" data-stars="5.0" data-discount="234">
+                                            <input type="radio" id="rating_234_10" name="rating_234" value="5.0" checked="checked"><label for="rating_234_10" title="Rate 5"></label>
+                                            <input type="radio" id="rating_234_9" name="rating_234" value="4.5"><label class="half" for="rating_234_9" title="Rate 4.5"></label>
+                                            <input type="radio" id="rating_234_8" name="rating_234" value="4.0"><label for="rating_234_8" title="Rate 4"></label>
+                                            <input type="radio" id="rating_234_7" name="rating_234" value="3.5"><label class="half" for="rating_234_7" title="Rate 3.5"></label>
+                                            <input type="radio" id="rating_234_6" name="rating_234" value="3.0"><label for="rating_234_6" title="Rate 3"></label>
+                                            <input type="radio" id="rating_234_5" name="rating_234" value="2.5"><label class="half" for="rating_234_5" title="Rate 2.5"></label>
+                                            <input type="radio" id="rating_234_4" name="rating_234" value="2.0"><label for="rating_234_4" title="Rate 2"></label>
+                                            <input type="radio" id="rating_234_3" name="rating_234" value="1.5"><label class="half" for="rating_234_3" title="Rate 1.5"></label>
+                                            <input type="radio" id="rating_234_2" name="rating_234" value="1.0"><label for="rating_234_2" title="Rate 1"></label>
+                                            <input type="radio" id="rating_234_1" name="rating_234" value="0.5"><label class="half" for="rating_234_1" title="Rate 0.5"></label>
+                                            <input type="radio" id="rating_234_0" name="rating_234" value="0"><label style="visibility: hidden; position: absolute;" for="rating_234_0" title="No star"></label>
+                                        </fieldset>        
+                                    </div>
+                                </div>
+                                <!-- Range Slider -->
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mb-7">
+                                    <div class="price-range">
+                                        <p>
+                                            <label for="amount">Cost to Play: </label>
+                                            <input type="text" id="amount" readonly>
+                                        </p>
+                                        <div id="slider-range"></div>
+                                    </div>
+                                </div>
+                                <!-- Range Slider -->
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mb-7">
+                                    <div class="price-range">
+                                        <p>
+                                            <label for="amount2">Value of Game: </label>
+                                            <input type="text" id="amount2" readonly>
+                                        </p>
+                                        <div id="slider-range2"></div>
+                                    </div>
+                                </div>
+                                <!-- Type of Game -->
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Type of Game <i class="material-icons">info_outline</i></label>
+                                        <select class="form-control" name="gamedifficulty">
+                                            <option disabled="" selected=""></option>
+                                            <option>Prize</option>
+                                            <option>Puzzle</option>
+                                            <option>2048</option>
+                                            <option>Quiz</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Charity -->
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Charity <i class="material-icons">info_outline</i></label>
+                                        <select class="form-control" name="gamedifficulty">
+                                            <option disabled="" selected=""></option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 advanced-filters landscape-50">
+                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel">
+                            <span class="fa fa-gears"></span> Advanced Search
+                        </button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 view-filters text-center landscape-50">
+                        <form class=" form-inline">
+                            Sort By :
+                            <select class="span2">
+                                <option>Default</option>
+                                <option>Name</option>
+                                <option>Price</option>
+                                <option>Rating </option>
+                                <option>Color</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            Show:
+                            <select class="span1">
+                                <option>10</option>
+                                <option>15</option>
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                            </select>
+                        </form>
+
+                        <div class="btn-group switcher" id="status" data-toggle="buttons">
+                            <label class="btn btn-default btn-on btn-xs active" name="url" onclick="showDrafted()">
+                                <input type="radio" value="1"  checked="checked">DRAFTS</label>
+                            <label class="btn btn-default btn-off btn-xs" name="url" onclick="showPublished()">
+                                <input type="radio" value="0" >PUBLISHED</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 view-switcher">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-on btn-xs btn-switcher active" id="grid"><i class="fa fa-th" aria-hidden="true"></i></button>
+                            <button class="btn btn-default btn-on btn-xs btn-switcher" id="list"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Search Ends -->
+
+                <div class="container grid-list-container">
+              
+
+                    <!-- Featured Project-->
+                    <div class="latestprojectcontianer mt40" id="productlist">
+                        <!--h2 class="heading1"><span class="maintext"> Featured Products</span></h2-->
+                        <div class="featureprojectwrap latestprojectcontianer grid">
+                            <ul class="mt40">
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="mt40">
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                    <div class="thumbnail">
+                                        <div class="relativediv"><img src="img/game.jpeg" alt="">
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="portfolio.html">Name of game</a></h3>
+                                            <div class="productratecart">
+                                                <div class="justify">
+                                                    <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                    <p>Type of game: Puzzle</p>
+                                                    <p>Cost to Play: 20</p>
+                                                    <p>Current value of game: 20</p>
+                                                </div>
+                                                <div class="action">
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <!-- Paging-->
+                            <div class="mt40 clearfix text-center">
+                                <ul class="pagination">
+                                    <li><a >Prev</a> </li>
+                                    <li class="active"> <a >1</a> </li>
+                                    <li><a >2</a> </li>
+                                    <li><a >3</a> </li>
+                                    <li><a >4</a> </li>
+                                    <li><a >Next</a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="featureprojectwrap latestprojectcontianer list">
+                            <ul class="mt40 clearfix">
+                                <li class="clearfix">
+                                    <div class="thumbnail">
+                                        <div class="listclear">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                                <div class="relativediv">
+                                                    <img src="img/game.jpeg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 landscape-50">
+                                                <div class="caption">
+                                                    <h3><a href="portfolio.html">Name of game</a></h3>
+                                                    <div class="productratecart">
+                                                        <div class="justify">
+                                                            <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                            <p>Type of game: Puzzle</p>
+                                                            <p>Cost to Play: 20</p>
+                                                            <p>Current value of game: 20</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="thumbnail">
+                                        <div class="listclear">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                                <div class="relativediv">
+                                                    <img src="img/game.jpeg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 landscape-50">
+                                                <div class="caption">
+                                                    <h3><a href="portfolio.html">Name of game</a></h3>
+                                                    <div class="productratecart">
+                                                        <div class="justify">
+                                                            <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                            <p>Type of game: Puzzle</p>
+                                                            <p>Cost to Play: 20</p>
+                                                            <p>Current value of game: 20</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="thumbnail">
+                                        <div class="listclear">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                                <div class="relativediv">
+                                                    <img src="img/game.jpeg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 landscape-50">
+                                                <div class="caption">
+                                                    <h3><a href="portfolio.html">Name of game</a></h3>
+                                                    <div class="productratecart">
+                                                        <div class="justify">
+                                                            <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                            <p>Type of game: Puzzle</p>
+                                                            <p>Cost to Play: 20</p>
+                                                            <p>Current value of game: 20</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="thumbnail">
+                                        <div class="listclear">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                                <div class="relativediv">
+                                                    <img src="img/game.jpeg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 landscape-50">
+                                                <div class="caption">
+                                                    <h3><a href="portfolio.html">Name of game</a></h3>
+                                                    <div class="productratecart">
+                                                        <div class="justify">
+                                                            <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                            <p>Type of game: Puzzle</p>
+                                                            <p>Cost to Play: 20</p>
+                                                            <p>Current value of game: 20</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="thumbnail">
+                                        <div class="listclear">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                                <div class="relativediv">
+                                                    <img src="img/game.jpeg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 landscape-50">
+                                                <div class="caption">
+                                                    <h3><a href="portfolio.html">Name of game</a></h3>
+                                                    <div class="productratecart">
+                                                        <div class="justify">
+                                                            <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                            <p>Type of game: Puzzle</p>
+                                                            <p>Cost to Play: 20</p>
+                                                            <p>Current value of game: 20</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="thumbnail">
+                                        <div class="listclear">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 landscape-50">
+                                                <div class="relativediv">
+                                                    <img src="img/game.jpeg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 landscape-50">
+                                                <div class="caption">
+                                                    <h3><a href="portfolio.html">Name of game</a></h3>
+                                                    <div class="productratecart">
+                                                        <div class="justify">
+                                                            <!--span class="newprice">$4459.00</span><span class="oldprice"> $5000.00</span> <br-->
+                                                            <p>Type of game: Puzzle</p>
+                                                            <p>Cost to Play: 20</p>
+                                                            <p>Current value of game: 20</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- Paging-->
+                            <div class="mt40 clearfix text-center">
+                                <ul class="pagination">
+                                    <li><a >Prev</a> </li>
+                                    <li class="active"> <a >1</a> </li>
+                                    <li><a >2</a> </li>
+                                    <li><a >3</a> </li>
+                                    <li><a >4</a> </li>
+                                    <li><a >Next</a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+
+
+
+                <!--   End Content   -->
+
+                <div class="footer">
+                    <div class="pull-left col-md-12 col-xs-12">
+                        <!--strong>Copyright</strong> Example Company &copy; 2014-2017-->
+                        <ul class="footer-info">
+                            <li><a href="#">Games Management</a></li>
+                            <li><a href="#">Calendar</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li class="right"><a href="#">Terms And Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="small-chat-box fadeInRight animated">
+
+            <div class="heading" draggable="true">
+                <small class="chat-date pull-right">
+                    02.19.2015
+                </small>
+                Small chat
+            </div>
+
+            <div class="content">
+
+                <div class="left">
+                    <div class="author-name">
+                        Monica Jackson <small class="chat-date">
+                            10:02 am
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        Lorem Ipsum is simply dummy text input.
+                    </div>
+
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Mick Smith
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        Lorem Ipsum is simpl.
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Alice Novak
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        Check this stock char.
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Anna Lamson
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        The standard chunk of Lorem Ipsum
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Mick Lane
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        I belive that. Lorem Ipsum is simply dummy text.
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn"> <button class="btn btn-primary" type="button">Send</button> </span>
+                </div>
+            </div>
+
+        </div>
+        <div id="small-chat">
+
+            <span class="badge badge-warning pull-right">5</span>
+            <a class="open-small-chat">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+        <div id="right-sidebar" class="animated">
+            <div class="sidebar-container">
+
+                <ul class="nav nav-tabs navs-3">
+
+                    <li class="active"><a data-toggle="tab" href="#tab-1">
+                            Notes
+                        </a></li>
+                    <li><a data-toggle="tab" href="#tab-2">
+                            Projects
+                        </a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">
+                            <i class="fa fa-gear"></i>
+                        </a></li>
+                </ul>
+
+                <div class="tab-content">
+
+
+                    <div id="tab-1" class="tab-pane active">
+
+                        <div class="sidebar-title">
+                            <h3> <i class="fa fa-comments-o"></i> Latest Notes</h3>
+                            <small><i class="fa fa-tim"></i> You have 10 new message.</small>
+                        </div>
+
+                        <div>
+
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a1.jpg">
+
+                                        <div class="m-t-xs">
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+
+                                        There are many variations of passages of Lorem Ipsum available.
+                                        <br>
+                                        <small class="text-muted">Today 4:21 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a2.jpg">
+                                    </div>
+                                    <div class="media-body">
+                                        The point of using Lorem Ipsum is that it has a more-or-less normal.
+                                        <br>
+                                        <small class="text-muted">Yesterday 2:45 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a3.jpg">
+
+                                        <div class="m-t-xs">
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        Mevolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                        <br>
+                                        <small class="text-muted">Yesterday 1:10 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a4.jpg">
+                                    </div>
+
+                                    <div class="media-body">
+                                        Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the
+                                        <br>
+                                        <small class="text-muted">Monday 8:37 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a8.jpg">
+                                    </div>
+                                    <div class="media-body">
+
+                                        All the Lorem Ipsum generators on the Internet tend to repeat.
+                                        <br>
+                                        <small class="text-muted">Today 4:21 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a7.jpg">
+                                    </div>
+                                    <div class="media-body">
+                                        Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                        <br>
+                                        <small class="text-muted">Yesterday 2:45 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a3.jpg">
+
+                                        <div class="m-t-xs">
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below.
+                                        <br>
+                                        <small class="text-muted">Yesterday 1:10 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a4.jpg">
+                                    </div>
+                                    <div class="media-body">
+                                        Uncover many web sites still in their infancy. Various versions have.
+                                        <br>
+                                        <small class="text-muted">Monday 8:37 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="tab-2" class="tab-pane">
+
+                        <div class="sidebar-title">
+                            <h3> <i class="fa fa-cube"></i> Latest projects</h3>
+                            <small><i class="fa fa-tim"></i> You have 14 projects. 10 not completed.</small>
+                        </div>
+
+                        <ul class="sidebar-list">
+                            <li>
+                                <a href="#">
+                                    <div class="small pull-right m-t-xs">9 hours ago</div>
+                                    <h4>Business valuation</h4>
+                                    It is a long established fact that a reader will be distracted.
+
+                                    <div class="small">Completion with: 22%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar progress-bar-warning"></div>
+                                    </div>
+                                    <div class="small text-muted m-t-xs">Project end: 4:00 pm - 12.06.2014</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="small pull-right m-t-xs">9 hours ago</div>
+                                    <h4>Contract with Company </h4>
+                                    Many desktop publishing packages and web page editors.
+
+                                    <div class="small">Completion with: 48%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="small pull-right m-t-xs">9 hours ago</div>
+                                    <h4>Meeting</h4>
+                                    By the readable content of a page when looking at its layout.
+
+                                    <div class="small">Completion with: 14%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 14%;" class="progress-bar progress-bar-info"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="label label-primary pull-right">NEW</span>
+                                    <h4>The generated</h4>
+                                    There are many variations of passages of Lorem Ipsum available.
+                                    <div class="small">Completion with: 22%</div>
+                                    <div class="small text-muted m-t-xs">Project end: 4:00 pm - 12.06.2014</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="small pull-right m-t-xs">9 hours ago</div>
+                                    <h4>Business valuation</h4>
+                                    It is a long established fact that a reader will be distracted.
+
+                                    <div class="small">Completion with: 22%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar progress-bar-warning"></div>
+                                    </div>
+                                    <div class="small text-muted m-t-xs">Project end: 4:00 pm - 12.06.2014</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="small pull-right m-t-xs">9 hours ago</div>
+                                    <h4>Contract with Company </h4>
+                                    Many desktop publishing packages and web page editors.
+
+                                    <div class="small">Completion with: 48%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="small pull-right m-t-xs">9 hours ago</div>
+                                    <h4>Meeting</h4>
+                                    By the readable content of a page when looking at its layout.
+
+                                    <div class="small">Completion with: 14%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 14%;" class="progress-bar progress-bar-info"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="label label-primary pull-right">NEW</span>
+                                    <h4>The generated</h4>
+                                    <!--<div class="small pull-right m-t-xs">9 hours ago</div>-->
+                                    There are many variations of passages of Lorem Ipsum available.
+                                    <div class="small">Completion with: 22%</div>
+                                    <div class="small text-muted m-t-xs">Project end: 4:00 pm - 12.06.2014</div>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div id="tab-3" class="tab-pane">
+
+                        <div class="sidebar-title">
+                            <h3><i class="fa fa-gears"></i> Settings</h3>
+                            <small><i class="fa fa-tim"></i> You have 14 projects. 10 not completed.</small>
+                        </div>
+
+                        <div class="setings-item">
+                            <span>
+                                Show notifications
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example">
+                                    <label class="onoffswitch-label" for="example">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>
+                                Disable Chat
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" checked class="onoffswitch-checkbox" id="example2">
+                                    <label class="onoffswitch-label" for="example2">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>
+                                Enable history
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example3">
+                                    <label class="onoffswitch-label" for="example3">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>
+                                Show charts
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example4">
+                                    <label class="onoffswitch-label" for="example4">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>
+                                Offline users
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" checked name="collapsemenu" class="onoffswitch-checkbox" id="example5">
+                                    <label class="onoffswitch-label" for="example5">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>
+                                Global search
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" checked name="collapsemenu" class="onoffswitch-checkbox" id="example6">
+                                    <label class="onoffswitch-label" for="example6">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>
+                                Update everyday
+                            </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example7">
+                                    <label class="onoffswitch-label" for="example7">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-content">
+                            <h4>Settings</h4>
+                            <div class="small">
+                                I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                And typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+        <!-- Flot -->
+        <script src="js/plugins/flot/jquery.flot.js"></script>
+        <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="js/plugins/flot/jquery.flot.spline.js"></script>
+        <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+        <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+
+        <!-- Peity -->
+        <script src="js/plugins/peity/jquery.peity.min.js"></script>
+        <script src="js/demo/peity-demo.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="js/inspinia.js"></script>
+        <script src="js/plugins/pace/pace.min.js"></script>
+
+        <!-- jQuery UI -->
+        <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+        <!-- GITTER -->
+        <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+
+        <!-- Sparkline -->
+        <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+        <!-- Sparkline demo data  -->
+        <script src="js/demo/sparkline-demo.js"></script>
+
+        <!-- ChartJS-->
+        <script src="js/plugins/chartJs/Chart.min.js"></script>
+
+        <!-- Toastr -->
+        <script src="js/plugins/toastr/toastr.min.js"></script>
+
+        <!--  Plugin for the Wizard -->
+        <script src="js/jquery.bootstrap.js" type="text/javascript"></script>
+        <script src="js/material-bootstrap-wizard.js"></script>
+
+        <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+        <script src="js/jquery.validate.min.js"></script>
+
+
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#slider-range").slider({
+                    range: true,
+                    min: 0,
+                    max: 500,
+                    values: [75, 300],
+                    slide: function (event, ui) {
+                        $("#amount").val("$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ]);
+                    }
+                });
+                $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                        " - $" + $("#slider-range").slider("values", 1));
+            });
+            $(function () {
+                $("#slider-range2").slider({
+                    range: true,
+                    min: 0,
+                    max: 500,
+                    values: [75, 300],
+                    slide: function (event, ui) {
+                        $("#amount2").val("$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ]);
+                    }
+                });
+                $("#amount2").val("$" + $("#slider-range2").slider("values", 0) +
+                        " - $" + $("#slider-range2").slider("values", 1));
+            });
+        </script>
+
+
+        <script>
+            //Game creation title popover
+            $(function () {
+                $('[data-toggle="popover"]').popover();
+            });
+        </script>
+
+
+
+
+        <script>
+            function showDrafted()
+            {
+                document.location = "https://winwinlabs.com/dev-version/WWL-Final/games-drafted.html";
+            }
+            function showPublished()
+            {
+                document.location = "https://winwinlabs.com/dev-version/WWL-Final/games-published.html";
+            }
+            // Product thumbnails
+            $('.thumbnail').each(function () {
+                $(this).hover(
+                        function () {
+                            $(this).children('.shortlinks').fadeIn()
+                        },
+                        function () {
+                            $(this).children('.shortlinks').fadeOut()
+                        });
+            });
+            $('.thumbnail').each(function ()
+            {
+                $(this).hover(
+                        function () {
+                            $(this).children('.shortlinksourteam').fadeIn()
+                        },
+                        function () {
+                            $(this).children('.shortlinksourteam').fadeOut()
+                        }
+                );
+            });
+
+            // List & Grid View
+            $('#productlist .featureprojectwrap:first').show();
+            $('#list').click(function ()
+            {
+                $(this).addClass('btn-orange').children('i').addClass('icon-white')
+                $('.grid').fadeOut()
+                $('.list').fadeIn()
+                $('#grid').removeClass('btn-orange').children('i').removeClass('icon-white')
+            });
+            $('#grid').click(function ()
+            {
+                $(this).addClass('btn-orange').children('i').addClass('icon-white')
+                $('.list').fadeOut()
+                $('.grid').fadeIn()
+                $('#list').removeClass('btn-orange').children('i').removeClass('icon-white')
+            });
+            $(".btn-switcher").on("click", function () {
+                $('.btn-switcher.active').removeClass('active');
+                $(this).addClass('active');
+            });
+        </script>
+        <script>
+            function showDrafted()
+            {
+                document.location = "https://winwinlabs.com/WWL-Final/drafted-games.html";
+            }
+            function showPublished()
+            {
+                document.location = "https://winwinlabs.com/WWL-Final/published-games.html";
+            }
+        </script>
+
+
+    </body>
+</html>
